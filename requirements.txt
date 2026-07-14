@@ -1,0 +1,16 @@
+# Core agent
+groq>=0.11.0
+tavily-python>=0.3.3
+trafilatura>=1.12.0
+python-dotenv>=1.0.0
+requests>=2.32.0
+
+# CLI output
+rich>=13.7.0
+
+# Eval pipeline (step 4)
+pydantic>=2.0.0
+pandas>=2.2.0
+
+# Demo (step 5)
+streamlit>=1.35.0

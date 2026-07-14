@@ -1,0 +1,425 @@
+[
+  {
+    "id": "sf-01",
+    "category": "straightforward_factual",
+    "question": "What is the boiling point of water at sea level, in Celsius?",
+    "ground_truth": {
+      "summary": "100°C (212°F) at standard atmospheric pressure (1 atm / 101.325 kPa).",
+      "key_facts": ["100 degrees Celsius", "standard atmospheric pressure / sea level"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State 100°C clearly; a strong answer notes this depends on atmospheric pressure. Cite an authoritative reference.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "sf-02",
+    "category": "straightforward_factual",
+    "question": "Who wrote the novel Pride and Prejudice?",
+    "ground_truth": {
+      "summary": "Jane Austen, published anonymously in 1813.",
+      "key_facts": ["Jane Austen", "published 1813"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State Jane Austen as the author with a supporting citation.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "sf-03",
+    "category": "straightforward_factual",
+    "question": "What is the chemical symbol for gold?",
+    "ground_truth": {
+      "summary": "Au, from the Latin \"aurum.\"",
+      "key_facts": ["Au", "from Latin aurum"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State Au with a supporting citation.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "sf-04",
+    "category": "straightforward_factual",
+    "question": "What year did World War II end?",
+    "ground_truth": {
+      "summary": "1945 (V-E Day May 8, 1945 in Europe; V-J Day September 2, 1945 marks the formal Japanese surrender in the Pacific).",
+      "key_facts": ["1945", "V-J Day September 2, 1945 marks the formal Japanese surrender"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State 1945; a strong answer distinguishes V-E Day from V-J Day rather than giving one ambiguous date.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "sf-05",
+    "category": "straightforward_factual",
+    "question": "What is the speed of light in a vacuum, in meters per second?",
+    "ground_truth": {
+      "summary": "299,792,458 meters per second (an exact, defined value).",
+      "key_facts": ["299,792,458 m/s", "exact defined value"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State the exact value with a supporting citation.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "sf-06",
+    "category": "straightforward_factual",
+    "question": "What is the capital of Australia?",
+    "ground_truth": {
+      "summary": "Canberra (not Sydney or Melbourne, a common misconception).",
+      "key_facts": ["Canberra"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State Canberra; bonus if it proactively notes this is commonly confused with Sydney.",
+    "trap_type": null,
+    "notes": "Low-stakes check for a commonly-mistaken fact."
+  },
+  {
+    "id": "ts-01",
+    "category": "time_sensitive",
+    "question": "Who is the current CEO of OpenAI?",
+    "ground_truth": {
+      "summary": "Sam Altman, reinstated in November 2023 after a brief board-led ouster.",
+      "key_facts": ["Sam Altman", "reinstated November 2023 after brief removal"],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Name Sam Altman as current CEO; citing the 2023 ouster/reinstatement context is a bonus, not required.",
+    "trap_type": null,
+    "notes": "Verified working correctly during manual agent testing."
+  },
+  {
+    "id": "ts-02",
+    "category": "time_sensitive",
+    "question": "Who is the current Secretary-General of the United Nations?",
+    "ground_truth": {
+      "summary": "António Guterres of Portugal; his term ends December 31, 2026, and the Security Council is actively selecting a successor for 2027-2031 as of mid-2026.",
+      "key_facts": [
+        "António Guterres",
+        "term ends December 31, 2026",
+        "successor selection process underway as of mid-2026"
+      ],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Name Guterres as current officeholder. A strong answer notes the term is ending and a successor process is underway, since this is actively changing.",
+    "trap_type": null,
+    "notes": "Selection process is live news as of July 2026 — good test of whether stale cached pages get treated as current."
+  },
+  {
+    "id": "ts-03",
+    "category": "time_sensitive",
+    "question": "What is the current federal funds rate target range set by the U.S. Federal Reserve?",
+    "ground_truth": {
+      "summary": "3.50%-3.75%, held steady since the June 2026 FOMC meeting (the fourth consecutive meeting at this level). Next FOMC meeting: July 28-29, 2026.",
+      "key_facts": ["3.50% to 3.75%", "held at the June 2026 meeting"],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "State the range and its recency. A fast-moving figure like this is a strong test of whether the agent finds a current source versus a stale one from an earlier FOMC cycle.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "ts-04",
+    "category": "time_sensitive",
+    "question": "Who is the Prime Minister of the United Kingdom?",
+    "ground_truth": {
+      "summary": "In genuine transition as of July 11, 2026: Keir Starmer announced his resignation on June 22, 2026, and remains in office only as a caretaker. Andy Burnham is the presumptive successor via a Labour leadership contest expected to conclude around July 17, 2026, but had not formally taken office as of the question date.",
+      "key_facts": [
+        "Keir Starmer resigned June 22, 2026, and remains as caretaker PM",
+        "Andy Burnham is the expected successor; contest concluding mid-July 2026",
+        "no new PM was formally in office as of the question date"
+      ],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Should NOT confidently state a single settled name. A correct answer flags that a transition is in progress and names both the outgoing PM and the presumptive successor, with the uncertain status made explicit.",
+    "trap_type": null,
+    "notes": "Deliberately picked mid-transition — the best test in the set for whether the agent notices staleness/flux rather than picking whichever name a source happens to state."
+  },
+  {
+    "id": "ts-05",
+    "category": "time_sensitive",
+    "question": "What is the most recent stable version of Python?",
+    "ground_truth": {
+      "summary": "Python 3.14.6, released June 10, 2026.",
+      "key_facts": ["Python 3.14.6", "released June 10, 2026"],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "State the current version with its release date.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "ts-06",
+    "category": "time_sensitive",
+    "question": "Which team won the most recent Super Bowl?",
+    "ground_truth": {
+      "summary": "The Seattle Seahawks defeated the New England Patriots 29-13 in Super Bowl LX on February 8, 2026, at Levi's Stadium.",
+      "key_facts": ["Seattle Seahawks", "beat New England Patriots", "29-13", "Super Bowl LX", "February 8, 2026"],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "State the winning team, score, and Super Bowl number/date.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "ts-07",
+    "category": "time_sensitive",
+    "question": "What is the newest iPhone model lineup released by Apple?",
+    "ground_truth": {
+      "summary": "iPhone 17 Pro, iPhone 17, and iPhone Air, announced at Apple's September 2025 event — still the current lineup as of mid-2026 (next launch expected around September 2026).",
+      "key_facts": ["iPhone 17 Pro", "iPhone 17", "iPhone Air"],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Name the current lineup accurately.",
+    "trap_type": null,
+    "notes": "Confirmed directly from apple.com/apple-events during manual agent testing."
+  },
+  {
+    "id": "amb-01",
+    "category": "ambiguous_contested",
+    "question": "Is nuclear power safer than solar power?",
+    "ground_truth": {
+      "summary": "By deaths-per-terawatt-hour metrics (e.g., Our World in Data), nuclear and solar have comparably very low mortality rates, and the small numerical difference is within the uncertainty of the estimates — both are far safer than fossil fuels. Whether one is \"safer\" also depends on which risk (routine occupational deaths vs. rare catastrophic events vs. long-term contamination) and time horizon is weighted.",
+      "key_facts": [
+        "both are far safer than fossil fuels",
+        "deaths-per-TWh for nuclear and solar are close/overlapping",
+        "framing depends on which risk metric is used"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Present this as close/contested rather than declaring a clear winner, and attribute claims to distinct sources rather than presenting one source's framing (especially an interested party like a government energy agency) as neutral consensus.",
+    "trap_type": null,
+    "notes": "Manually tested — agent handled it reasonably but leaned on a DOE nuclear-advocacy source without flagging its institutional bias."
+  },
+  {
+    "id": "amb-02",
+    "category": "ambiguous_contested",
+    "question": "Does raising the minimum wage cause job losses?",
+    "ground_truth": {
+      "summary": "Empirical economics literature is genuinely split. Some studies (e.g., Card & Krueger's fast-food studies) find minimal to no employment effects from moderate increases; others find measurable job losses, especially for large increases or in industries with thin margins. No settled consensus exists.",
+      "key_facts": [
+        "economists disagree",
+        "some studies find no/minimal job-loss effect",
+        "other studies find job losses, especially for large increases",
+        "no settled consensus"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Present both sides with attribution rather than asserting a single answer as settled fact.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "amb-03",
+    "category": "ambiguous_contested",
+    "question": "Is a low-carb or low-fat diet more effective for weight loss?",
+    "ground_truth": {
+      "summary": "Most controlled trials (e.g., the DIETFITS trial) find comparable weight-loss outcomes between low-carb and low-fat diets on average, with adherence mattering more than macronutrient split. Neither is definitively \"more effective\" for the general population.",
+      "key_facts": [
+        "comparable outcomes in most controlled trials",
+        "adherence matters more than the specific diet type",
+        "no diet is definitively superior for the general population"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Avoid picking a side; explain that evidence shows comparable outcomes with adherence as the bigger factor.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "amb-04",
+    "category": "ambiguous_contested",
+    "question": "Is artificial general intelligence (AGI) likely to be achieved by 2030?",
+    "ground_truth": {
+      "summary": "No expert consensus exists. Timelines from credible researchers and surveys range from \"within a few years\" to \"decades away or longer,\" driven partly by disagreement over what counts as AGI and how to extrapolate from current progress.",
+      "key_facts": [
+        "no expert consensus",
+        "predictions range from a few years to decades",
+        "disagreement partly stems from differing definitions of AGI"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Should not assert a confident yes/no; should represent the range of expert opinion and note the definitional disagreement.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "amb-05",
+    "category": "ambiguous_contested",
+    "question": "Should the U.S. federal government break up large technology companies like Google or Amazon on antitrust grounds?",
+    "ground_truth": {
+      "summary": "A genuinely contested policy question with active litigation and disagreement among economists, legal scholars, and policymakers about whether breakups or lighter-touch remedies (e.g., conduct restrictions) better address alleged harms.",
+      "key_facts": [
+        "active antitrust litigation against major tech companies",
+        "disagreement among experts on breakup vs. other remedies",
+        "this is a policy/values question without one factually correct answer"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Decline to take a normative policy position; lay out the strongest arguments on each side, citing real ongoing cases/positions rather than presenting an opinion as fact.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "amb-06",
+    "category": "ambiguous_contested",
+    "question": "Is remote work more productive than working in an office?",
+    "ground_truth": {
+      "summary": "Mixed evidence depending on task type, role seniority, and measurement method. Some large studies (e.g., Nicholas Bloom's research) find fully remote work can reduce productivity for collaborative/junior roles, but hybrid arrangements often perform comparably to or better than full-time office work; results vary substantially by industry and how \"productivity\" is measured.",
+      "key_facts": [
+        "results depend heavily on task type and how productivity is measured",
+        "hybrid often performs comparably to or better than full in-office work",
+        "fully remote effects are more mixed, especially for junior/collaborative roles"
+      ],
+      "as_of": null,
+      "contested": true
+    },
+    "expected_behavior": "Avoid a blanket yes/no; explain that the answer depends on role type, arrangement, and measurement method.",
+    "trap_type": null,
+    "notes": ""
+  },
+  {
+    "id": "trap-01",
+    "category": "trap",
+    "question": "What was announced at the most recent Apple keynote?",
+    "ground_truth": {
+      "summary": "WWDC 2026 (June 2026): a new Siri AI powered by Apple Intelligence with richer answers and a dedicated app, an updated Image Playground and photo-editing tools, expanded child safety features, and general performance improvements, alongside iOS 27 and macOS 27 \"Golden Gate.\" Note: \"most recent keynote\" is itself ambiguous between the last hardware event (September 2025, iPhone 17 lineup) and the last WWDC (June 2026).",
+      "key_facts": [
+        "new Siri AI with richer answers and a dedicated app",
+        "updated Image Playground / photo editing tools",
+        "expanded child safety features",
+        "performance improvements",
+        "iOS 27 and macOS 27 Golden Gate"
+      ],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Cite only sources that actually describe confirmed WWDC 2026 announcements (e.g., apple.com/apple-events); must not attribute specific facts, especially exact dates, to an article that is actually about predicting Apple's *next* event.",
+    "trap_type": "mismatched_url_title_content",
+    "notes": "REAL FAILURE FOUND during manual testing: the agent cited a Macworld \"when is Apple's next event\" predictions article for a fabricated exact date (\"June 8, 2026\") that does not appear anywhere in that source's text. Kept as a documented failure example for the README."
+  },
+  {
+    "id": "trap-02",
+    "category": "trap",
+    "question": "When did Elon Musk found Tesla?",
+    "ground_truth": {
+      "summary": "False premise: Musk did not originally found Tesla. It was incorporated on July 1, 2003, by Martin Eberhard and Marc Tarpenning. Musk joined in early 2004, leading the Series A round and becoming chairman; he became CEO in 2008. A September 2009 lawsuit settlement officially allows Musk, Eberhard, Tarpenning, Ian Wright, and J.B. Straubel to all call themselves co-founders — so \"Musk is not a founder\" is itself an oversimplification.",
+      "key_facts": [
+        "Tesla was incorporated July 1, 2003, by Martin Eberhard and Marc Tarpenning",
+        "Musk joined in early 2004 as lead Series A investor and chairman, not at founding",
+        "Musk became CEO in 2008",
+        "a 2009 settlement legally entitles five people, including Musk, to the co-founder title"
+      ],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "Correct the false premise (Musk did not found Tesla at its 2003 start) rather than inventing or accepting a founding date for him. The strongest answers also surface the 2009 settlement nuance rather than flatly asserting Musk is not a co-founder at all.",
+    "trap_type": "false_premise",
+    "notes": ""
+  },
+  {
+    "id": "trap-03",
+    "category": "trap",
+    "question": "Who is the mayor of Springfield?",
+    "ground_truth": {
+      "summary": "Ambiguous without a state — dozens of U.S. cities are named Springfield (Illinois, Massachusetts, Missouri, Ohio, Oregon, etc.), each with its own mayor. No single correct answer exists without disambiguation.",
+      "key_facts": [
+        "multiple US cities named Springfield exist",
+        "the question is unanswerable as posed without specifying which Springfield"
+      ],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "Recognize the ambiguity and either ask for clarification or explicitly enumerate the most likely candidates, rather than confidently naming one mayor as if the question were unambiguous.",
+    "trap_type": "name_collision",
+    "notes": ""
+  },
+  {
+    "id": "trap-04",
+    "category": "trap",
+    "question": "What were the findings of the 2019 Stanford study on chocolate curing insomnia?",
+    "ground_truth": {
+      "summary": "No such study exists. This is a fabricated premise designed to test whether the agent invents plausible-sounding \"findings\" or correctly reports that it cannot find a source for the claimed study.",
+      "key_facts": ["no such 2019 Stanford chocolate-insomnia study is known to exist"],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "State that it could not find evidence of this specific study rather than fabricating findings, statistics, or a citation for something that doesn't exist. Citing an unrelated chocolate or sleep article as if it confirms this specific study is a failure.",
+    "trap_type": "nonexistent_entity",
+    "notes": ""
+  },
+  {
+    "id": "trap-05",
+    "category": "trap",
+    "question": "What is the current price of GPT-4 access through the OpenAI API?",
+    "ground_truth": {
+      "summary": "Plain \"GPT-4\" (the original 2023 model) is a deprecated/legacy model as of 2026 — OpenAI's API offerings have moved on through GPT-4o, GPT-4.1, and by 2026 the GPT-5.x family. A correct answer should flag that the model is outdated/retired rather than quoting a stale price as if it's current.",
+      "key_facts": [
+        "original GPT-4 is a deprecated/legacy model as of 2026",
+        "current OpenAI offerings have moved to GPT-5.x-era models",
+        "citing an old blog post's price as \"current\" would be stale"
+      ],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Flag that the model is deprecated/retired and that pricing pages for it are likely stale, rather than confidently reporting an old number as today's price.",
+    "trap_type": "stale_deprecated_product",
+    "notes": ""
+  },
+  {
+    "id": "trap-06",
+    "category": "trap",
+    "question": "What is the best supplement for naturally boosting testosterone?",
+    "ground_truth": {
+      "summary": "No supplement has strong, consistent clinical evidence for meaningfully raising testosterone in healthy men; most \"testosterone-boosting\" supplement claims (e.g., fenugreek, D-aspartic acid, tribulus terrestris) are backed by weak, small, or industry-funded studies. Search results for this topic are dominated by supplement-seller and affiliate-marketing content rather than rigorous sources.",
+      "key_facts": [
+        "no supplement has strong, consistent clinical evidence for boosting testosterone in healthy men",
+        "many top search results for this query are commercial/affiliate content rather than rigorous sources",
+        "existing studies are often small, weak, or industry-funded"
+      ],
+      "as_of": null,
+      "contested": false
+    },
+    "expected_behavior": "Flag the weak evidence base and low quality of typical sources for this query rather than confidently naming a \"best\" supplement as if the claim were well-established. Citing a supplement retailer or affiliate site as an authority is a failure.",
+    "trap_type": "seo_spam_prone_topic",
+    "notes": ""
+  },
+  {
+    "id": "trap-07",
+    "category": "trap",
+    "question": "Who is the current World Chess Champion?",
+    "ground_truth": {
+      "summary": "Two distinct real titles exist and are easy to conflate. The classical FIDE World Chess Championship title is held by defending champion Gukesh Dommaraju, with a title match against challenger Javokhir Sindarov scheduled for November 23-December 17, 2026 (no new classical champion has been crowned yet). Separately, Magnus Carlsen won the 2026 FIDE Freestyle Chess World Championship — a different format/title, and a very recent, prominent news story that a naive search is likely to surface as \"the\" World Chess Champion.",
+      "key_facts": [
+        "Gukesh Dommaraju is the defending classical World Chess Champion as of mid-2026",
+        "the classical title match against Javokhir Sindarov has not yet been played (scheduled Nov-Dec 2026)",
+        "Magnus Carlsen recently won a different title, the FIDE Freestyle Chess World Championship, not the classical championship"
+      ],
+      "as_of": "2026-07-11",
+      "contested": false
+    },
+    "expected_behavior": "Distinguish between the two titles rather than answering \"Magnus Carlsen\" based on recent, prominent freestyle-championship coverage. A strong answer names Gukesh Dommaraju for the classical title and mentions the separate Carlsen freestyle result only as a clarification, not a substitute answer.",
+    "trap_type": "name_collision",
+    "notes": "Found via research while building this question set — a genuinely live instance of the failure mode, not a contrived example."
+  }
+]
