@@ -10,7 +10,7 @@ from agent.search import search
 def run(
     question: str,
     k: int = 5,
-    model: str = "claude-opus-4-8",
+    model: str = "llama-3.3-70b-versatile",
     fetch_pages: bool = True,
 ) -> dict:
     """Run the full pipeline for a question and return the answer, citations, and sources.

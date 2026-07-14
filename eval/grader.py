@@ -106,7 +106,7 @@ class CitationCheck(BaseModel):
     reasoning: str
 
 
-def _strict_json_schema(schema: dict) -> dict:
+def strict_json_schema(schema: dict) -> dict:
     """Recursively add additionalProperties: false to every object in the schema.
     Groq's strict structured-output mode requires this on every nested object
     (including $defs), but Pydantic's model_json_schema() only sets it at the
@@ -116,11 +116,11 @@ def _strict_json_schema(schema: dict) -> dict:
             schema.setdefault("additionalProperties", False)
         for value in schema.values():
             if isinstance(value, dict):
-                _strict_json_schema(value)
+                strict_json_schema(value)
             elif isinstance(value, list):
                 for item in value:
                     if isinstance(item, dict):
-                        _strict_json_schema(item)
+                        strict_json_schema(item)
     return schema
 
 
@@ -240,7 +240,7 @@ Sources the agent had access to:
                 "json_schema": {
                     "name": "grade_result",
                     "strict": True,
-                    "schema": _strict_json_schema(GradeResult.model_json_schema()),
+                    "schema": strict_json_schema(GradeResult.model_json_schema()),
                 },
             },
         )
