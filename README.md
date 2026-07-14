@@ -141,6 +141,37 @@ purpose-built trap questions.
   called out unavailable, contested, or insufficient sources in most cases
   where it should have.
 
+### Does Full-Page Fetch Actually Matter? (Ablation)
+
+The agent's one deliberate architectural choice is fetching and extracting
+full page text rather than trusting Tavily's search snippets. To check
+whether that choice actually matters, the full 26-question benchmark was
+re-run with `--no-fetch` (LLM sees only search snippets, same model, same
+questions):
+
+| Metric | Full-fetch | Snippets-only (`--no-fetch`) |
+|---|---|---|
+| Citation grounding rate | 85% (171/202) | 83% (195/236) |
+| Hallucination rate | 2/26 (8%) | 3/26 (12%) |
+| Time-sensitive: fully correct | 2/7 (29%) | **0/7 (0%)** |
+| Time-sensitive: incorrect | 2/7 (29%) | 3/7 (43%) |
+
+Citation-level grounding barely moves (85% → 83%) — Tavily's snippets are
+curated enough that citing them "accurately" is still easy, and since
+snippets never fail to load, the "cited an unavailable source" failure mode
+disappears entirely in this mode. But **answer accuracy on time-sensitive
+questions collapses to zero fully-correct answers**, and the hallucination
+rate rises.
+
+This is the same gap the GPT-4 pricing example (below) illustrates at the
+level of a single answer: a citation can be technically grounded in what it
+points to while the answer built from it is still worse, because a snippet
+carries less complete information — exact dates, version numbers, nuance —
+than the full page, even when what little is there gets cited correctly.
+Citation-grounding rate alone is not a sufficient proxy for answer quality;
+this ablation is the empirical case for why the grading pipeline tracks them
+separately.
+
 ### Judge Validation (Human Spot-Check)
 
 An LLM-as-judge pipeline is only as trustworthy as its judge. To check that,

@@ -175,7 +175,8 @@ question. If there was nothing to be uncertain about, this should be true by \
 default.
 
 Be strict and specific — quote or closely paraphrase the exact claim text you're \
-checking rather than summarizing the whole answer."""
+checking rather than summarizing the whole answer. Keep every "reasoning" field to \
+one short sentence — you are working under a tight output budget."""
 
 
 def load_questions(limit: int | None = None) -> list[dict]:
@@ -229,6 +230,7 @@ Sources the agent had access to:
         throttle()
         response = client.chat.completions.create(
             model=JUDGE_MODEL,
+            max_completion_tokens=4096,
             messages=[
                 {"role": "system", "content": GRADER_SYSTEM_PROMPT},
                 {"role": "user", "content": prompt},
