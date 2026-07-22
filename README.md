@@ -10,6 +10,31 @@ citation-grounding to fail.
 > support the cited claim? What conditions — stale sources, dead links,
 > ambiguous questions, contested topics — drive grounding failures?
 
+## Related Work
+
+The core method here — an agent that cites sources, graded by a separate LLM
+judge that checks each citation against the source's actual text — follows an
+established evaluation pattern (e.g.,
+[ALCE](https://arxiv.org/abs/2305.14627), 2023, the foundational benchmark
+for citation-quality evaluation in LLMs). The headline finding below — that
+citation-level grounding can be high while the underlying claim is stale or
+wrong — is not a novel discovery: a 2026 paper,
+[*"Cited but Not Verified: Parsing and Evaluating Source Attribution in LLM
+Deep Research Agents"*](https://arxiv.org/abs/2605.06635), reports the same
+pattern at larger scale (130 queries, 14 models, judges calibrated against
+50–100 human reviews per dimension), finding link validity and topical
+relevance above 94%/80% against factual accuracy of only 39–77%.
+
+What's distinct here is narrower: the full-page-fetch vs. search-snippet-only
+ablation (showing citation grounding barely moves while time-sensitive answer
+accuracy collapses) doesn't appear in the related work surveyed, and the
+trap-question taxonomy — naming specific failure *mechanisms* (false
+premise, name collision, stale source, SEO-spam-prone topic) rather than
+just picking hard questions — is a distinct curatorial contribution. This is
+a small-scale demonstration (26 questions, one agent model, one judge model)
+built to independently illustrate and verify an already-documented
+phenomenon, not to discover a new one.
+
 ## Architecture
 
 The agent is deliberately simple. The complexity is in the evaluation.
