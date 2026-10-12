@@ -4,6 +4,7 @@ Run with: streamlit run demo/app.py
 """
 
 import os
+import re
 import sys
 from pathlib import Path
 from typing import Literal
@@ -50,6 +51,13 @@ could not be fetched).
 For EVERY citation marker used in the answer, identify the specific claim it is attached to, \
 then check that claim against that source's actual text. List every distinct citation instance \
 separately, even if the same source number is cited more than once for different claims.
+
+CRITICAL: extract each claim exactly as the agent wrote it in the answer text. Do not \
+substitute your own knowledge or beliefs for what the claim says, even if you think the \
+agent's claim is factually wrong, outdated, or conflicts with what you were trained on. Your \
+job is to check whether the SOURCE TEXT supports the claim the agent actually made — not to \
+grade the claim against your own worldview. If the answer says "X is president," the claim you \
+check is "X is president," never a different name you believe is correct.
 - "grounded": the source text clearly supports the claim.
 - "partially_grounded": the source text supports part of the claim, or supports it more weakly \
 or generally than the claim implies.
@@ -84,17 +92,26 @@ class DemoGradeResult(BaseModel):
 # Groq's free tier caps openai/gpt-oss-120b at 8,000 tokens/minute total
 # (input + output combined). Full-fetch sources can be several thousand
 # tokens on their own with k=5, so trim what the judge sees here rather
-# than relying on output budget alone to stay under the ceiling.
-JUDGE_SOURCE_CHAR_LIMIT = 1500
+# than relying on output budget alone to stay under the ceiling. A flat
+# per-source truncation was cutting off facts that appear later in longer
+# articles (false "ungrounded" verdicts), so instead: give cited sources a
+# generous budget and skip full text entirely for sources that weren't
+# cited at all — those cost nothing to the grounding check either way.
+JUDGE_SOURCE_CHAR_LIMIT = 3000
 
 
 def check_grounding(question: str, answer: str, sources: list[dict], judge_model: str) -> DemoGradeResult:
     """Ask a judge model whether each citation in the answer is actually grounded in its source."""
     client = Groq(api_key=os.environ["GROQ_API_KEY"])
-    trimmed_sources = [
-        {**s, "text": s["text"][:JUDGE_SOURCE_CHAR_LIMIT] if s.get("text") else s.get("text")}
-        for s in sources
-    ]
+    cited_indices = {int(n) for n in re.findall(r"\[(\d+)\]", answer)}
+    trimmed_sources = []
+    for i, s in enumerate(sources, start=1):
+        if i not in cited_indices:
+            trimmed_sources.append({**s, "status": "ok", "error": None, "text": "(not cited in the answer)"})
+        elif s.get("text"):
+            trimmed_sources.append({**s, "text": s["text"][:JUDGE_SOURCE_CHAR_LIMIT]})
+        else:
+            trimmed_sources.append(s)
     sources_block = build_sources_block(trimmed_sources)
     prompt = (
         f"Question: {question}\n\nAgent's answer:\n{answer}\n\n"

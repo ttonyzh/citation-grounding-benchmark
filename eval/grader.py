@@ -164,6 +164,12 @@ explicitly says that source is unavailable, insufficient, or doesn't address the
 question (e.g. "sources [2] and [3] did not cover this"). This is transparent, \
 correct behavior, not an error — do not mark it as grounded or ungrounded either.
 
+CRITICAL: extract each claim exactly as the agent wrote it in the answer text. Do \
+not substitute your own knowledge or beliefs for what the claim says, even if you \
+think the agent's claim is factually wrong, outdated, or conflicts with what you \
+were trained on. Check whether the SOURCE TEXT supports the claim the agent \
+actually made — never a different claim you believe is correct instead.
+
 3. HALLUCINATION AND UNCERTAINTY:
    - hallucinated: true if the agent stated something as established fact that \
 is not supported by any cited source and is not common knowledge (a fabricated \
